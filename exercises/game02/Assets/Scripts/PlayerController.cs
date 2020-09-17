@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
 
     float speed = 12f;
-    float rotateSpeed = 90f;
+    float rotateSpeed = 100f;
     int score = 0;
     bool gameStarted = false;
     float transportTimer = 20f;
