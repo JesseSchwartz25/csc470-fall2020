@@ -16,19 +16,21 @@ public class PlayerController : MonoBehaviour
 
 
 
-    float speed = 10f;
+    float speed = 12f;
     float rotateSpeed = 90f;
     int score = 0;
     bool gameStarted = false;
     float transportTimer = 20f;
     float transportRate = 20f;
     bool useTimer = false;
+    Quaternion forwardPos;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        forwardPos = player.transform.rotation;
         
     }
 
@@ -61,6 +63,11 @@ public class PlayerController : MonoBehaviour
                 transportTimer = transportRate;
                 useTimer = false;
                 timer.text = "";
+
+                //set the player's rotate equal to the spotlight
+                player.transform.rotation = forwardPos;
+                //player.transform.Rotate(escapePosition.transform.forward);
+                //player.transform.Rotate(escapePosition.transform.rotation.x, escapePosition.transform.rotation.y, escapePosition.transform.rotation.z);
             }
         }
         
@@ -83,6 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             //this teleports the player to a position in the middle of the maze
             player.transform.position = new Vector3(mazePosition.transform.position.x, mazePosition.transform.position.y, mazePosition.transform.position.z);
+           
 
             //start the timer
             useTimer = true;
@@ -92,6 +100,7 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "portal" && score == 10)
         {
             startText.text = "You Win!!!!";
+            player.transform.position = new Vector3(0, -100, 0);
         }
 
         if (other.tag == "enemy")
