@@ -51,17 +51,26 @@ public class GameManager : MonoBehaviour
 	{
 		timer -= Time.deltaTime;
 
-		if (timer < 0) {
+		if (timer < 0)
+		{
 			generateNextState();
-			
+
 			timer = timerRate;
+		}
+
+		for (int x = 0; x < gridWidth; x++)
+		{
+			for (int y = 0; y < gridHeight; y++)
+			{
+				grid[x, y].TurnRed();
+			}
 		}
 	}
 	
 	void generateNextState()
 	{
 		time++;
-		if(PC.counter >= 5)
+		if(PC.counter >= 10)
         {
 			for (int x = 0; x < gridWidth; x++)
 			{

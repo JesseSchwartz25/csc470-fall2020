@@ -67,7 +67,7 @@ public class CellScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (PC.counter <= 5 && !beenSelected)
+        if (PC.counter <= 10 && !beenSelected)
         {
             this.Alive = true;
             beenSelected = true;
