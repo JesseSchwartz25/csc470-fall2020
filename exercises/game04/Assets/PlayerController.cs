@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 	bool prevIsGrounded = false;
 
 	float yVelocity = 0;
-	float jumpForce = .5f;
+	float jumpForce = .75f;
 	float gravityModifier = 0.1f;
 
 	bool isFlying = false;
