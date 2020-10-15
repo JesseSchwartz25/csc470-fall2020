@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
 	float freq = .5f;
-	float amp = .5f;
+	float amp = 5f;
 
 	float theta = 0;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,8 +16,8 @@ public class PlayerController : MonoBehaviour
 	bool prevIsGrounded = false;
 
 	float yVelocity = 0;
-	float jumpForce = 1f;
-	float gravityModifier = 0.2f;
+	float jumpForce = .5f;
+	float gravityModifier = 0.1f;
 
 	bool isFlying = false;
 
@@ -26,9 +27,9 @@ public class PlayerController : MonoBehaviour
 
 	float speed = 10;
 	float maxSpeed = 20;
-	float forwardSpeed = 1;
+	float forwardSpeed = 6;
 	float pitchSpeed = 80;
-	float pitchModSpeedRate = 8f;
+	float pitchModSpeedRate = 3f;
 	float rollSpeed = 80;
 
 	bool hasRotated = false;
@@ -37,18 +38,31 @@ public class PlayerController : MonoBehaviour
 
 
 	public GameObject robot;
+	public GameObject flyingRobot;
 
 	public MovingPlatform PlatformAttachedTo;
+
+
+	public Text Score;
+	public Button Restart;
+	public Text Timer;
+	int ScoreInt = 1;
+	float time = 0f;
 	
 	// Start is called before the first frame update
 	void Start()
 	{
 		cc = gameObject.GetComponent<CharacterController>();
+		flyingRobot.transform.localScale = new Vector3(0, 0, 0);
 	}
 	
 	// Update is called once per frame
 	void Update()
 	{
+		time += Time.deltaTime;
+
+
+		Timer.text = "" + time;
 
 		if (!isFlying)
 		{
@@ -130,11 +144,11 @@ public class PlayerController : MonoBehaviour
 		{
 
 			cc = null;
-			if (!hasRotated ) {
+			//if (!hasRotated ) {
 				
-				robot.transform.Rotate(-90, 0, 0);
-				hasRotated = true;
-			}
+			//	robot.transform.Rotate(-90, 0, 0);
+			//	hasRotated = true;
+			//}
 
 
 			float hAxis = Input.GetAxis("Horizontal");
@@ -142,8 +156,17 @@ public class PlayerController : MonoBehaviour
 
 			// Rotate the plane based on input.
 			float xRot = vAxis * pitchSpeed * Time.deltaTime;
-			float yRot = hAxis * rollSpeed / 4 * Time.deltaTime;
+			float yRot = 0;
+				//hAxis * rollSpeed / 4 * Time.deltaTime;
 			float zRot = -hAxis * rollSpeed * Time.deltaTime;
+
+			if(transform.rotation.z != 0)
+            {
+				yRot += -transform.rotation.z / 1;
+				Mathf.Clamp(yRot, -90, 90);
+				Debug.Log(yRot);
+            }
+
 			transform.Rotate(xRot, yRot, zRot, Space.Self);
 
 			// Compute a modifier (forwardSpeed) based on if the plane is looking up or down.
@@ -196,8 +219,17 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Fly"))
         {
 			isFlying = true;
-			Debug.Log("should be flying");
+			//Debug.Log("should be flying");
 			Destroy(other);
+
+			robot.transform.localScale = new Vector3 (0, 0, 0);
+			flyingRobot.transform.localScale = new Vector3(1, 1, 1);
+        }
+
+
+        if (other.CompareTag("ring")){
+			Score.text = "Score: " + ScoreInt;
+			ScoreInt++;
         }
     }
 }
