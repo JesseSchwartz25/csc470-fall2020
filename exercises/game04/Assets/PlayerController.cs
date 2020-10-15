@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -230,6 +231,14 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("ring")){
 			Score.text = "Score: " + ScoreInt;
 			ScoreInt++;
+			Destroy(other);
         }
     }
+
+
+	public void restart()
+    {
+		Scene scene = SceneManager.GetActiveScene();
+		SceneManager.LoadScene(scene.name);
+	}
 }
