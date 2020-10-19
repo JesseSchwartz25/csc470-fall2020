@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 	bool prevIsGrounded = false;
 
 	float yVelocity = 0;
-	float jumpForce = .75f;
+	float jumpForce = .7f;
 	float gravityModifier = 0.1f;
 
 	bool isFlying = false;
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 	public Text Score;
 	public Button Restart;
 	public Text Timer;
-	int ScoreInt = 1;
+	int ScoreInt = 0;
 	float time = 0f;
 	
 	// Start is called before the first frame update
@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		time += Time.deltaTime;
+		if(ScoreInt <3)
+			time += Time.deltaTime;
 
 
 		Timer.text = "" + time;
@@ -229,8 +230,9 @@ public class PlayerController : MonoBehaviour
 
 
         if (other.CompareTag("ring")){
-			Score.text = "Score: " + ScoreInt;
 			ScoreInt++;
+			Score.text = "Score: " + ScoreInt;
+			
 			Destroy(other);
         }
     }
