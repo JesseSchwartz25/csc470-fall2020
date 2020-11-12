@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     //public bool attached = false;
     //public bool collided = false;
     public bool LoadLevelTwo = false;
+    public bool LoadLevelThree = false;
 
     public bool isLinked = false;
 
     public CharacterController cc;
     public float moveSpeed = 10f;
     public Vector3 amountToMove;
+    float gravity = 0f;
 
 
 
@@ -38,9 +40,9 @@ public class PlayerController : MonoBehaviour
 
         cc.Move(amountToMove);
 
-        float gravity = 0f;
+        
 
-        gravity -= 9.81f * Time.deltaTime;
+        gravity -= 1f * Time.deltaTime;
         Vector3 grav = new Vector3(0, gravity, 0);
         cc.Move(grav);
         if (cc.isGrounded) gravity = 0;
@@ -92,6 +94,17 @@ public class PlayerController : MonoBehaviour
         {
             LoadLevelTwo = true;
 
+        }
+
+        if (other.CompareTag("EndLevelTwo"))
+        {
+            LoadLevelThree = true;
+            Debug.Log("end level 2");
+        }
+
+        if (other.CompareTag("Jump"))
+        {
+            gravity = .35f;
         }
 
 

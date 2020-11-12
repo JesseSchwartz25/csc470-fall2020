@@ -200,7 +200,7 @@ public class AttachScript : MonoBehaviour
     public void detach()
     {
         
-        transform.SetParent(null);
+       // transform.SetParent(null);
         meshRenderer.material = regular;
         gameObject.tag = "Add";
         attached = false;
@@ -213,7 +213,7 @@ public class AttachScript : MonoBehaviour
     {
         attached = true;
         pc.isLinked = true;
-        transform.SetParent(player.transform);
+      //  transform.SetParent(player.transform);
         meshRenderer.material = conjoined;
         gameObject.tag = "Player";
 

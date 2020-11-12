@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
         {
             LoadLevelTwo();
         }
+
+        if (pc.LoadLevelThree)
+        {
+            LoadLevelThree();
+        }
     }
 
 
@@ -35,5 +40,10 @@ public class GameManager : MonoBehaviour
     public void LoadLevelTwo()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("LevelTwo");
+    }
+
+    public void LoadLevelThree()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LevelThree");
     }
 }

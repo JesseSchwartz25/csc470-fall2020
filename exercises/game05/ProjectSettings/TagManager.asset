@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Add
   - EndLevelOne
+  - EndLevelTwo
+  - Jump
+  - EndLevelThree
   layers:
   - Default
   - TransparentFX
