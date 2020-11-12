@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 10f;
     public Vector3 amountToMove;
     float gravity = 0f;
+    public Text endText;
+
+   
 
 
 
@@ -48,47 +52,16 @@ public class PlayerController : MonoBehaviour
         if (cc.isGrounded) gravity = 0;
 
 
+        
+
 
     }
-    //IDK why but this doesnt really work. it works for changing the color but triggers are easier i feel like.
-    //private void OnControllerColliderHit(ControllerColliderHit hit)
-    //{
-    //    if (hit.collider.gameObject.CompareTag("Add"))
-    //    {
-    //        MeshRenderer meshRenderer = hit.collider.gameObject.GetComponentInChildren<MeshRenderer>();
-    //        meshRenderer.material = touching;
 
-
-    //        AttachScript aScript = hit.collider.gameObject.GetComponent<AttachScript>();
-
-    //        aScript.collided = true;
-
-
-    //        Debug.Log(aScript.collided);
-    //    }
-    //}
 
     private void OnTriggerEnter(Collider other)
     {
 
-        //Moved this to the attachScript so that block can attach to each other
-        //    if (other.CompareTag("Add"))
-        //    {
-        //        AttachScript aScript = other.gameObject.GetComponent<AttachScript>();
-
-        //        MeshRenderer meshRenderer = other.gameObject.GetComponentInChildren<MeshRenderer>();
-
-        //        if (!aScript.attached)
-        //        {
-        //            meshRenderer.material = touching;
-        //        }
-
-
-        //        aScript.collided = true;
-
-
-        //        Debug.Log(aScript.collided);
-        //    }
+       
 
         if (other.CompareTag("EndLevelOne"))
         {
@@ -107,34 +80,15 @@ public class PlayerController : MonoBehaviour
             gravity = .35f;
         }
 
+        if (other.CompareTag("EndLevelThree"))
+        {
+            endText.transform.localScale = new Vector3(1,1,1);
+        }
+
 
 
 
     }
-
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Add"))
-    //    {
-    //        AttachScript aScript = other.gameObject.GetComponent<AttachScript>();
-
-    //        MeshRenderer meshRenderer = other.gameObject.GetComponentInChildren<MeshRenderer>();
-
-    //        if (!aScript.attached)
-    //        {
-    //            meshRenderer.material = regular;
-    //            aScript.collided = false;
-    //            aScript.detach();
-    //        }
-
-            
-            
-
-
-    //        Debug.Log(aScript.collided);
-    //    }
-    //}
 
 
 

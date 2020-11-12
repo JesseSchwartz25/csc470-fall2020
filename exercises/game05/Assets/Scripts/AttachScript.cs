@@ -18,19 +18,24 @@ public class AttachScript : MonoBehaviour
     private MeshRenderer meshRenderer;
     PlayerController pc;
     CharacterController cc;
-    GameObject toAttach;
+   // GameObject toAttach;
+    MeterScript ms;
+
+
+    public float strength = 10f;
 
 
     List<GameObject> attachedto = new List<GameObject>();
 
-    Rigidbody rb;
+    //Rigidbody rb;
 
     void Start()
     {
-        rb = this.GetComponent<Rigidbody>();
+       // rb = this.GetComponent<Rigidbody>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         pc = player.GetComponent<PlayerController>();
         cc = GetComponent<CharacterController>();
+        ms = player.GetComponentInChildren<MeterScript>();
 
     }
 
@@ -53,8 +58,6 @@ public class AttachScript : MonoBehaviour
         if (!attached)
         {
 
-
-
         }
         if (attached)
         {
@@ -76,7 +79,35 @@ public class AttachScript : MonoBehaviour
             GetComponent<BoxCollider>().isTrigger = true;
         }
 
-        
+
+
+        //strength management
+        if (pc.isLinked)
+        {
+            strength -= 1 * Time.deltaTime;
+        }
+        if (!pc.isLinked && strength < 10)
+        {
+            strength += 3 * Time.deltaTime;
+        }
+        if (strength < 0)
+        {
+           // detach();
+        }
+
+        Debug.Log(strength);
+
+        //ms.SetMeter(strength / 10f);
+
+
+
+
+
+
+
+
+
+
     }
 
 
