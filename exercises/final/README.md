@@ -20,14 +20,14 @@ I want this tp both show the dreariness of offices and also the fun of office ch
 I haven't touched audio yet in Unity, so as long as I can just have audio, that's all I'm really aiming for. Ideally there would be game music, and specific sound effects for jumping, landing, and failing.
 
 
-##Interface##
+##Interface
 
 Gimme a minute to figure this one out. I'm trying my best!
 
 Generally, it will include a score counter, chair strength indicator, and potentially a power up status indicator if I can get that in. Outside of gameplay, there will be a start screen, and potentially a shop for players to spend their coins. I need to figure out how to do all of that though. 
 
 
-##Story/Theme##
+##Story/Theme
 
 Like I said earlier, the theme of this game is escape from the mundane, taking everyday objects and making them fun. There isn't to much of a story. I see this as more of a mobile game that you play for a day or two before deleting it because there are too many ads.
 
