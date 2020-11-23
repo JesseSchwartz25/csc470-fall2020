@@ -56,6 +56,16 @@ If everything goes well or if it turns out some of this is really ease and/or im
 
 
 
+# Timeline
+
+By the end of thanksgiving break I would like to have a mostly functional chair jumping mechanic and at least researched a way to get the infinite runner mechanic. Because those two things make up the majority of the difficulty I want to allocate the most amount of time to it,
+
+I would like to spend the next week working on reaching my target goals and polishing the basic features. 
+
+Any extra time can go to reaching the high bar and/or extreme bar.
+
+
+
 
 
 
