@@ -1,5 +1,8 @@
 # Final Project
 
+
+![alt text](https://github.com/JesseSchwartz25/csc470-fall2020/blob/master/exercises/final/Screen%20Shot%202020-12-10%20at%202.02.50%20PM.png)
+
 My idea for my game is to make a downhill chair surfing game (this could totally change as I think about it more but I think thus could be fun)
 
 ## Gameplay
