@@ -90,11 +90,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  pc: {fileID: 0}
   PlayerRotation: {fileID: 0}
   rb: {fileID: 0}
   attached: 0
   eject: 0
   toDestroy: 0
+  beenEjected: 0
   amountToRotate: {x: 0, y: 0, z: 0, w: 0}
   isElite: 0
   correctForwardForce: {x: 0, y: 0, z: 0}

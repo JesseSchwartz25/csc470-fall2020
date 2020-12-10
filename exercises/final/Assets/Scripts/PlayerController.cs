@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     public float Jump;
     public float acrobatics;
-    public float test = 69f;
+    //public float test = 69f;
     public CharacterController cc;
     public float gravity = 0f;
     public Vector3 amountToMove;
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public GameObject PlayerRotation;
     public GameObject chair;
     public GameManager gm;
+    public TextMeshProUGUI GameUI;
+    public int points;
 
 
     public int lives;
@@ -30,21 +34,50 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-       // chair = this.gameObject;
-        Jump = 30f;
-        acrobatics = 10f;
+        // chair = this.gameObject;
+        gm = GameManager.instance;
+       
+
+        Jump = gm.jumpHeight;
+
+        if (acrobatics < 10)
+            acrobatics = 10f;
+
         attached = false;
         speedtimer = .1f;
         lives = 3;
+        
+        chair = GameObject.Find("EliteChairLogic");
+        points = 0;
+
+
+        // gm.jumpHeight = Jump;
+        //gm.acrobatics = acrobatics;
+        acrobatics = gm.acrobatics;
+
+        
     }
 
 
     void Update()
     {
+
+        Jump = gm.jumpHeight;
+        if (Jump < .35f)
+            Jump = .35f;
+
+
+        points += (int)(-transform.position.y + 2)/3;
+        Mathf.Clamp(points, 0, Mathf.Infinity);
+        if (points < 0)
+            points = 0;
+
+        GameUI.text = "Lives: " + lives + "          Coins: " + gm.coins + "          Points: " + points;
         
         //tracking the current speed of the player by using the old location and the current location vvv
 
         speedtimer -= Time.deltaTime;
+
 
         if(speedtimer <= 0)
         {
@@ -57,7 +90,10 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        
+       
+
+        acrobatics = gm.acrobatics;
+
 
 
         //gravity and jumping vvv
@@ -82,9 +118,8 @@ public class PlayerController : MonoBehaviour
         Vector3 grav = new Vector3(0, gravity, 0);
         cc.Move(grav);
 
-        ChairScript cs = chair.GetComponent<ChairScript>();
 
-        Vector3 airmove = (cs.correctForwardForce * jumpForwardForce * Time.deltaTime) + (transform.forward * currentSpeed*2 * Time.deltaTime);
+        Vector3 airmove = (chair.GetComponent<ChairScript>().correctForwardForce * jumpForwardForce * Time.deltaTime) + (transform.forward * currentSpeed * 2 * Time.deltaTime);
         cc.Move(airmove);
 
         //chair.transform.forward --> took this out for "correctForwardForce" I think it generally works better...
@@ -97,22 +132,28 @@ public class PlayerController : MonoBehaviour
         timer -= Time.deltaTime;
 
 
-        amountToMove = transform.forward * vAxis * acrobatics * Time.deltaTime + transform.right * hAxis * acrobatics * Time.deltaTime;
+        amountToMove = transform.forward * vAxis * acrobatics * Time.deltaTime + transform.right * hAxis * 2 * acrobatics * Time.deltaTime;
 
         // cc.Move(amountToMove);
 
         if (attached)
         {
+
+            chair.GetComponent<ChairScript>().rotationSpeed += hAxis * 100 * Time.deltaTime;
             transform.position = (new Vector3(chair.transform.position.x, transform.position.y, chair.transform.position.z));
-            PlayerRotation.transform.rotation = chair.transform.rotation;
+           
+
+            if (chair.CompareTag("EliteChair"))
+            {
+                PlayerRotation.transform.Rotate(0, hAxis * 100 * Time.deltaTime, 0);
+            }
+            else
+            {
+                PlayerRotation.transform.rotation = chair.transform.rotation;
+            }
         }
 
 
-
-        if (timer <= 0 && attached)
-        {
-            //initiate game over
-        }
 
 
         if (Input.GetKeyDown(KeyCode.Space) && attached)
@@ -140,7 +181,7 @@ public class PlayerController : MonoBehaviour
     public void bounce()
     {
         attached = false;
-        gravity = .35f;
+        gravity = Jump;
         jumpForwardForce = 11f;
         Debug.Log("jumped");
     }
@@ -148,7 +189,7 @@ public class PlayerController : MonoBehaviour
     public void bounceForward()
     {
         attached = false;
-        gravity = .35f;
+        gravity = Jump;
         Debug.Log("ejected");
     }
 
@@ -157,9 +198,11 @@ public class PlayerController : MonoBehaviour
     {
         if ((other.CompareTag("Chair") || other.CompareTag("EliteChair")) && !attached)
         {
+           // Destroy(chair);
             chair = other.gameObject;
             attached = true;
-            timer = 10f;
+            points *= 2;
+            //timer = 10f; --> abandoned this idea
             //make the player attach to the chair
             Debug.Log("hit chair");
             if(lives < 3)
@@ -169,10 +212,13 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Road"))
         {
+            other.GetComponent<AudioSource>().Play();
             //initiate endgame
             Debug.Log("hit road");
+            jumpForwardForce = 0;
+            gravity = 0;
 
-
+            points /= (4-lives);
 
             Debug.Log(lives + "lives left");
 
@@ -188,11 +234,13 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("NewRoad"))
         {
             gm.BuildNewRoad();
+            Destroy(other);
         }
 
 
         if (other.CompareTag("Obstacle"))
         {
+            other.GetComponent<AudioSource>().Play();
             Debug.Log("hit car");
             bounce();
 
@@ -201,7 +249,10 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Coin"))
         {
             gm.coins++;
+            points *= 2;
+            other.GetComponent<AudioSource>().Play();
             Destroy(other);
+            other.gameObject.GetComponentInChildren<MeshRenderer>().forceRenderingOff = true;
         }
 
         if (other.CompareTag("Respawn"))
@@ -218,7 +269,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Road"))
         {
             bounce();
-
+           // points /= (4 - lives);
         }
     }
 }

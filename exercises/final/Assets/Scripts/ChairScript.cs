@@ -12,6 +12,7 @@ public class ChairScript : MonoBehaviour
     public bool attached;
     public bool eject;
     public bool toDestroy;
+    public bool beenEjected;
     public Quaternion amountToRotate;
     public bool isElite;
 
@@ -28,12 +29,17 @@ public class ChairScript : MonoBehaviour
     {
         Player = GameObject.Find("Player");
         pc = Player.GetComponent<PlayerController>();
-        //PlayerRotation = Player.Pla
+        PlayerRotation = Player.transform.Find("PlayerRotation").gameObject;
         eject = false;
         attached = false;
         toDestroy = false;
+        beenEjected = false;
 
+        float rotationDirection = Random.Range(0, 1);
+        rotationDirection -= .5f;
         rotationSpeed = Random.Range(80f, 200f);
+
+        rotationSpeed *= rotationDirection * 2;
 
         if (gameObject.CompareTag("EliteChair")) 
         {
@@ -67,15 +73,20 @@ public class ChairScript : MonoBehaviour
             //moved this to the playerscript
 
         }
+        if(attached && isElite)
+        {
+            transform.rotation = PlayerRotation.transform.rotation;
+        }
         if (attached)
         {
             correctForwardForce = transform.forward;
         }
 
-        if (eject)
+        if (eject && !beenEjected)
         {
             destroyCoroutine = StartCoroutine(DestroyChair());
-            rb.AddForce(transform.forward * -1 * 20);
+            rb.AddForce(transform.forward * -1 * 200);
+            beenEjected = true;
             DestroyChair();
         }
         if (toDestroy)
@@ -111,7 +122,7 @@ public class ChairScript : MonoBehaviour
             rb.AddForce(Player.transform.forward * 20f * (10f * pc.currentSpeed));
         }
 
-        if (other.CompareTag("Respawn")){
+        if (other.CompareTag("Respawn") && !eject){
             Destroy(this);
         }
     }
@@ -134,7 +145,7 @@ public class ChairScript : MonoBehaviour
     {
         if (eject)
         {
-            Destroy(gameObject);
+           // Destroy(gameObject);
         }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 66937351}
   - component: {fileID: 66937352}
   - component: {fileID: 66937353}
+  - component: {fileID: 66937355}
   m_Layer: 0
   m_Name: BasicChairLogic - obsolete
   m_TagString: Chair
@@ -61,7 +62,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.2845697, y: 4.8476906, z: 2.3723083}
+  m_Size: {x: 2.92, y: 5.25, z: 3.49}
   m_Center: {x: 0.28966856, y: 1.9238453, z: -0.21242404}
 --- !u!65 &66937353
 BoxCollider:
@@ -74,8 +75,32 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5458632, y: 2.3803043, z: 2.71989}
-  m_Center: {x: 0.11239338, y: 0.80984783, z: 0.008738756}
+  m_Size: {x: 2.2804456, y: 2.56, z: 2.2818265}
+  m_Center: {x: 0.24510217, y: 1.53, z: -0.21029305}
+--- !u!114 &66937355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775072376281336414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d1c4646348f4f998c342cee07bef60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  pc: {fileID: 0}
+  PlayerRotation: {fileID: 0}
+  rb: {fileID: 0}
+  attached: 0
+  eject: 0
+  toDestroy: 0
+  beenEjected: 0
+  amountToRotate: {x: 0, y: 0, z: 0, w: 0}
+  isElite: 0
+  correctForwardForce: {x: 0, y: 0, z: 0}
+  rotationSpeed: 0
 --- !u!1001 &7245491001971053138
 PrefabInstance:
   m_ObjectHideFlags: 0
