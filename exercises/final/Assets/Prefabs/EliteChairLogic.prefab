@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4527887219877738419}
   m_Layer: 0
   m_Name: EliteChairLogic
-  m_TagString: Chair
+  m_TagString: EliteChair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.9005044, y: 4.807625, z: 2.4830446}
-  m_Center: {x: -0.67226636, y: 2.64, z: 0.42140913}
+  m_Size: {x: 2.9005044, y: 4.0091057, z: 2.4830446}
+  m_Center: {x: -0.67226636, y: 2.2407408, z: 0.42140913}
 --- !u!54 &5801651692357805689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -96,6 +96,8 @@ MonoBehaviour:
   eject: 0
   toDestroy: 0
   amountToRotate: {x: 0, y: 0, z: 0, w: 0}
+  isElite: 0
+  correctForwardForce: {x: 0, y: 0, z: 0}
   rotationSpeed: 0
 --- !u!1001 &3465394765620154058
 PrefabInstance:

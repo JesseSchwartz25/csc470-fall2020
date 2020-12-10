@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Chair
   - Road
+  - EliteChair
+  - NewRoad
+  - Obstacle
+  - Coin
   layers:
   - Default
   - TransparentFX
